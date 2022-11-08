@@ -1,0 +1,77 @@
+/*Abuelos*/
+hombre(rickard).
+hombre(hoster).
+/*Padre/Tio*/
+hombre(eddard).
+hombre(benjen).
+/*Hijos*/
+hombre(jon).
+hombre(robb).
+hombre(brandon).
+hombre(rickon).
+/*Abuelas*/
+mujer(lyarra).
+mujer(minisa).
+/*Madre/Tias*/
+mujer(catelyn). 
+mujer(lysa).
+mujer(lyanna).
+/*Hijas*/
+mujer(sansa).
+mujer(arya).
+
+
+progenitor(rickard,eddard).
+progenitor(rickard,benjen).
+progenitor(rickard,lyanna).
+progenitor(hoster,catelyn).
+progenitor(hoster,lysa).
+progenitor(lyarra,eddard).
+progenitor(lyarra,benjen).
+progenitor(lyarra,lyanna).
+progenitor(minisa,catelyn).
+progenitor(minisa,lysa).
+progenitor(eddard,jon).
+progenitor(eddard, robb).
+progenitor(catelyn,robb).
+progenitor(eddard, sansa).
+progenitor(catelyn,sansa).
+progenitor(eddard, arya).
+progenitor(catelyn,arya).
+progenitor(eddard, brandon).
+progenitor(catelyn,brandon).
+progenitor(eddard, rickon).
+progenitor(catelyn,rickon).
+
+/*-Reglas-*/
+
+/* Padres */
+padre(X,Y):- hombre(X), progenitor(X,Y).
+ 
+madre(X,Y):- mujer(X), progenitor(X,Y).
+
+/* Hijos */
+hijo(X,Y):- hombre(X), progenitor(Y,X).
+
+hija(X,Y):- mujer(X), progenitor(Y,X).
+ 
+/*Abuelos*/
+abuelo(X,Y):- padre(X,Z), progenitor(Z,Y).
+ 
+abuela(X,Y):- madre(X,Z), progenitor(Z,Y).
+
+/*Hermanas*/
+hermana(X,Y):- mujer(X), (padre(F, Y), padre(F,X) ; madre(M, Y), madre(M,X)), X \= Y.
+ 
+/*Hermanos*/
+hermano(X,Y):- hombre(X), (padre(F, Y), padre(F,X) ; madre(M, Y), madre(M,X)), X \= Y.
+
+/*Tios*/
+tia(X,Y):- mujer(X), progenitor(Z,Y), (hermana(Z,X); hermano(Z,X)).
+ 
+tio(X,Y):- hombre(X), progenitor(Z,Y), (hermana(Z,X);hermano(Z,X)).
+
+/*Sobrinos*/
+sobrino(X,Y):- hombre(X), progenitor(Z,X), (hermana(Z,Y);hermano(Z,Y)).
+
+sobrina(X,Y):- mujer(X), progenitor(Z,X), (hermana(Z,Y);hermano(Z,Y)).
