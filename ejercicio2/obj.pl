@@ -1,1 +1,0 @@
-camino(X, d, Y).

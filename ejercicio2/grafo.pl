@@ -6,5 +6,4 @@ arista(c, d).
 
 
 /*-Reglas-*/
-conexo(X, Y):- arista(X, Y).
-camino(X, Z, Y):- conexo(X, Y), conexo(Y, Z). 
+camino(X, Z, Y):- arista(X, Y), arista(Y, Z). 
