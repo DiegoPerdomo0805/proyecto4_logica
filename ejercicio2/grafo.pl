@@ -12,8 +12,8 @@ sin_repetidos(_, []).
 sin_repetidos(L, [P|Ps]):- L \== P, sin_repetidos(L, Ps).
 
 % Camino
-camino(Final, Final, _, []).
 camino(Inicio, Final, [Inicio|Ps]):- camino(Inicio, Final, [Inicio], Ps).
+camino(Final, Final, _, []).
 camino(Inicio, Final, Anteriores, [P|Ps]):-
   arista(Inicio, P),
   sin_repetidos(P, Anteriores),
