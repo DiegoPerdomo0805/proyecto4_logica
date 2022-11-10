@@ -6,4 +6,16 @@ arista(c, d).
 
 
 /*-Reglas-*/
-camino(X, Z, Y):- arista(X, Y), arista(Y, Z). 
+
+% Repetidos
+sin_repetidos(_, []).
+sin_repetidos(L, [P|Ps]):- L \== P, sin_repetidos(L, Ps).
+
+% Camino
+camino(Final, Final, _, []).
+camino(Inicio, Final, [Inicio|Ps]):- camino(Inicio, Final, [Inicio], Ps).
+camino(Inicio, Final, Anteriores, [P|Ps]):-
+  arista(Inicio, P),
+  sin_repetidos(P, Anteriores),
+  camino(P, Final, [P|Anteriores], Ps)
+.
